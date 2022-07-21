@@ -51,6 +51,17 @@
                 {%- endif -%}
               {%- endfor -%}
             {%- endif -%}
+            {%- assign equal_contribution = false -%}
+            {% if entry.equal -%}
+              {%- assign equal_authors = entry.equal | split: " and " -%}
+              {%- capture author_full -%}{{author.last}}, {{author.first}}{%- endcapture -%}
+              {%- for equal_author in equal_authors -%}
+                {%- if equal_author == author_full -%}
+                  {%- assign equal_contribution = true -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
             
             {%- if forloop.length == 1 -%}
               {%- if author_is_self %}
@@ -61,14 +72,18 @@
             {%- else -%}
               {%- unless forloop.last -%}
                 {% if author_is_self %}
-                  <em>{{author.last}}, {{author.first}}</em>,&nbsp;
+                  <em>{{author.last}}, {{author.first}}</em>
                 {%- else -%}
                   {% if coauthor_url -%}
-                    <a href="{{coauthor_url}}">{{author.last}}, {{author.first}}</a>,&nbsp;
+                    <a href="{{coauthor_url}}">{{author.last}}, {{author.first}}</a>
                   {%- else -%}
-                    {{author.last}}, {{author.first}},&nbsp;
+                    {{author.last}}, {{author.first}}
                   {%- endif -%}
                 {%- endif -%}
+                {%- if equal_contribution -%}
+                  <span class="star">*</span>
+                {%- endif -%}
+                ,&nbsp;
               {%- else -%}
                 {%- if author_array_limit == author_array_size %} and {% endif %}
                 {% if author_is_self -%}
@@ -173,6 +188,12 @@
           {%- if entry.code %}
             <a href="{{ entry.code }}" class="btn btn-sm z-depth-0" role="button">Code</a>
           {%- endif %}
+          {%- if entry.link1_url %}
+            <a href="{{ entry.link1_url }}" class="btn btn-sm z-depth-0" role="button">{{ entry.link1_text }}</a>
+          {%- endif %}
+          {%- if entry.link2_url %}
+            <a href="{{ entry.link2_url }}" class="btn btn-sm z-depth-0" role="button">{{ entry.link2_text }}</a>
+          {%- endif %}
           {%- if entry.poster %}
             {% if entry.poster contains '://' -%}
             <a href="{{ entry.poster }}" class="btn btn-sm z-depth-0" role="button">Poster</a>
@@ -185,6 +206,13 @@
             <a href="{{ entry.slides }}" class="btn btn-sm z-depth-0" role="button">Slides</a>
             {%- else -%}
             <a href="{{ entry.slides | prepend: '/assets/pdf/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">Slides</a>
+            {%- endif %}
+          {%- endif %}
+          {%- if entry.video %}
+            {% if entry.video contains '://' -%}
+            <a href="{{ entry.video }}" class="btn btn-sm z-depth-0" role="button">Video</a>
+            {%- else -%}
+            <a href="{{ entry.video | prepend: '/assets/pdf/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">Video</a>
             {%- endif %}
           {%- endif %}
           {%- if entry.website %}

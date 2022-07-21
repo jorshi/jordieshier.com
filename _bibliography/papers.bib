@@ -10,3 +10,45 @@
   year={2022},
   arxiv={2203.03022}
 }
+
+@inproceedings{turian2021one,
+  abbr={DAFx},
+  abstract={We release synth1B1, a multi-modal audio corpus consisting of 1 billion 4-second synthesized sounds, paired with the synthesis parameters used to generate them. The dataset is 100x larger than any audio dataset in the literature. We also introduce torchsynth, an open source modular synthesizer that generates the synth1B1 samples on-the-fly at 16200x faster than real-time (714MHz) on a single GPU. Finally, we release two new audio datasets: FM synth timbre and subtractive synth pitch. Using these datasets, we demonstrate new rank-based evaluation criteria for existing audio representations. Finally, we propose a novel approach to synthesizer hyperparameter optimization.},
+  title={One billion audio sounds from gpu-enabled modular synthesis},
+  author={Turian, Joseph and Shier, Jordie and Tzanetakis, George and McNally, Kirk and Henry, Max},
+  equal={Turian, Joseph and Shier, Jordie},
+  booktitle={2021 24th International Conference on Digital Audio Effects (DAFx)},
+  pages={222--229},
+  year={2021},
+  organization={IEEE},
+  pdf={https://dafx2020.mdw.ac.at/proceedings/papers/DAFx20in21_paper_34.pdf},
+  video={https://dafx2020.mdw.ac.at/proceedings/presentations/DAFx20in21_paper_34.mp4},
+  code={https://github.com/torchsynth/torchsynth},
+  website={https://torchsynth.readthedocs.io/en/latest/}
+}
+
+@article{shier2021manifold,
+  abbr={JAES},
+  abstract={The use of electronic drum samples is widespread in contemporary music productions, with music producers having an unprecedented number of samples available to them. The task of organizing and selecting from these large collections can be challenging and time consuming, which points to the need for improved methods for user interaction. This paper presents a system that computationally characterizes and organizes drum machine samples in two dimensions based on sound similarity. The goal of the work is to support the development of intuitive drum sample browsing systems. The methodology presented explores time segmentation, which isolates temporal subsets from the input signal prior to audio feature extraction, as a technique for improving similarity calculations. Manifold learning techniques are compared and evaluated for dimensionality reduction tasks, and used to organize and visualize audio collections in two dimensions. This methodology is evaluated using a combination of objective and subjective methods including audio classification tasks and a user listening study. Finally, we present an open-source audio plug-in developed using the JUCE software framework that incorporates the findings from this study into an application that can be used in the context of a music production environment.},
+  title={Manifold learning methods for visualization and browsing of drum machine samples},
+  author={Shier, Jordie and McNally, Kirk and Tzanetakis, George and Brooks, Ky Grace},
+  journal={Journal of the Audio Engineering Society},
+  volume={69},
+  number={1/2},
+  pages={40--53},
+  year={2021},
+  publisher={Audio Engineering Society},
+  link1_url={https://github.com/jorshi/sample_analysis},
+  link1_text={Analysis Code},
+  link2_url={https://github.com/jorshi/sieve},
+  link2_text={Audio Plugin}
+}
+
+@inproceedings{shier2020spiegelib,
+  abbr={AES},
+  title={Spiegelib: An automatic synthesizer programming library},
+  author={Shier, Jordie and Tzanetakis, George and McNally, Kirk},
+  booktitle={Audio Engineering Society Convention 148},
+  year={2020},
+  organization={Audio Engineering Society}
+}
