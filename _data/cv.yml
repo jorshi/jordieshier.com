@@ -22,6 +22,21 @@
         - Combined Computer Science and Music
         - 'Undergraduate Research: Insights into the Nature of Drum Machine Sounds'
 
+- title: Academic Experience
+  type: time_table
+  contents:
+    - title: Sessional Lecturer
+      institution: University of Victoria
+      year: 09/2020 - 12/2020
+      description:
+        - Course instructor for Music Retrieval Techniques (CSC 475/SENG 480B)
+        - Developed course content with supporting materials, lead twice weekly lectures/tutorials for 79 students, and managed two TAs
+    - title: Research Assistant
+      institution: University of Victoria
+      year: 05/2017 - 04/2021
+      description:
+        - Developed tools for audio analysis of drum samples and musical recordings
+
 - title: Experience
   type: time_table
   contents:
