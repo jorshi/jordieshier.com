@@ -20,7 +20,7 @@ I am PhD student in the [Artificial Intelligence and Music](https://www.aim.qmul
 Our industry research partner is Dr. Andrew Robertson ([Ableton](https://www.ableton.com/en/)).
 
 My research is focused on the development of software that supports creativity
-in musicians and music producers. I am particularly interested creating novel
+in musicians and music producers. I am particularly interested in creating novel
 methods for synthesizing audio and researching new interaction paradigms for music
 synthesizers. My PhD research topic is
 [Real-time timbral mapping for synthesized percussive performance](https://www.aim.qmul.ac.uk/phd-topics/#Ableton).
