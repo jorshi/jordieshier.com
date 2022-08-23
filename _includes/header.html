@@ -84,9 +84,11 @@
               {% endfor -%}
 
               <!-- Link to my CV -->
+              {%- if site.cv_url -%}
               <li class="nav-item">
-                <a class="nav-link" href="https://docs.google.com/document/d/17S34bJpOV2ZWR74AiIugc4J4l5EJ58fO/edit?usp=sharing&ouid=101054428570229627395&rtpof=true&sd=true">cv</a>
+                <a class="nav-link" href="{{ site.cv_url }}">cv</a>
               </li>
+              {%- endif -%}
 
               {%- if site.enable_darkmode %}
 
