@@ -15,10 +15,15 @@ hr {
 table {
   td, th {
     color: var(--global-text-color);
+    border-top: 1px solid #dee2e6;
+    padding: 0.3rem;
+    text-align: center;
+    min-width: 150px;
   }
   td {
     font-size: 1rem;
   }
+  width: 100%;
 }
 
 a, table.table a {
@@ -642,4 +647,8 @@ html.transition *:after {
       padding: 8px;
     }
   }
+}
+
+.player {
+  width: 100%;
 }
