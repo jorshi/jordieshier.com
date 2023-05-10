@@ -7,6 +7,19 @@ importance: 1
 category: research
 ---
 
+## Results
+<hr />
+
+Here we share resynthesis results from our method on a selection of acoustic and
+electronic drum set sounds from our test set. $$Y$$ is the ground truth audio target,
+$$S$$ is sinudoial only using sinusoidal modeling, $$S + N$$ is sines plus noise with a
+differentiable noise encoder and generator, $$T(S)$$ is the transient encoder + temporal
+convolution network with sines as input (no noise), $$T(S + N)$$ adds noise prior to
+the TCN, $$T(S) + N$$ adds noise after the TCN, and $$T(S) + N + S$$ also adds the
+sinusoidal signal to the output in addition to using it as input to the transient
+generator.
+
+
 | Target           | $$Y$$                                                                                                         | $$S$$ | $$S + N$$ | $$T(S)$$ | $$T(S + N)$$ | $$T(S) + N$$ | $$T(S) + N + S$$ |
 |------------------|---------------------------------------------------------------------------------------------------------------|-------|-----------|----------|--------------|--------------|------------------|
 | Acoustic Kick    | <audio controls class="player"><source src="/assets/audio/drumblender/a_kick.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/a_kick_modal.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/a_kick_noise_params.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/a_kick_transient_params.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/a_kick_noise_transient_params.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/a_kick_noise_parallel_transient_params.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/a_kick_all_parallel.mp3" type="audio/mpeg"></audio>  |
