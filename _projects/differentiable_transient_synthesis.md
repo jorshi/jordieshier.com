@@ -10,6 +10,11 @@ category: research
 <p style="text-align: center;">Jordie Shier, Franco Caspe, Andrew Robertson, Mark Sandler, Charalampos Saitis, and Andrew McPherson</p>
 
 <br />
+<div align="center">
+    <a href="https://github.com/jorshi/drumblender"><i class="fab fa-github"></i> <b>Code</b></a>
+</div>
+
+<br />
 ### Abstract
 <div>
 Differentiable digital signal processing (DDSP) techniques, including methods for audio synthesis, have gained attention in recent years and lend themselves to interpretability in the parameter space. However, current differentiable synthesis methods have not explicitly sought to model the transient portion of signals, which is important for percussive sounds. In this work, we present a unified synthesis framework aiming to address transient generation and percussive synthesis within a DDSP framework. To this end, we propose a model for percussive synthesis that builds on sinusoidal modeling synthesis and incorporates a modulated temporal convolutional network for transient generation. We use a modified sinusoidal peak picking algorithm to generate time-varying non-harmonic sinusoids and pair it with differentiable noise and transient encoders that are jointly trained to reconstruct drumset sounds. We compute a set of reconstruction metrics using a large dataset of acoustic and electronic percussion samples that show that our method leads to improved onset signal reconstruction for membranophone percussion instruments.
@@ -40,6 +45,53 @@ summed at the ouput.
 | Electronic Tom   | <audio controls class="player"><source src="/assets/audio/drumblender/e_tom.mp3" type="audio/mpeg"></audio>   | <audio controls class="player"><source src="/assets/audio/drumblender/e_tom_modal.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/e_tom_noise_params.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/e_tom_noise_parallel_transient_params.mp3" type="audio/mpeg"></audio>  | 
 | Electronic Hihat | <audio controls class="player"><source src="/assets/audio/drumblender/e_hihat.mp3" type="audio/mpeg"></audio> | <audio controls class="player"><source src="/assets/audio/drumblender/e_hihat_modal.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/e_hihat_noise_params.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/e_hihat_noise_parallel_transient_params.mp3" type="audio/mpeg"></audio>  |
 | Electronic Crash | <audio controls class="player"><source src="/assets/audio/drumblender/e_crash.mp3" type="audio/mpeg"></audio> | <audio controls class="player"><source src="/assets/audio/drumblender/e_crash_modal.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/e_crash_noise_params.mp3" type="audio/mpeg"></audio>  | <audio controls class="player"><source src="/assets/audio/drumblender/e_crash_noise_parallel_transient_params.mp3" type="audio/mpeg"></audio>  |
+
+
+<br />
+## Spectral Flux Reconstruction
+<hr />
+
+To evaluate transient reconstruction we used the $$L_2$$ error between spectral flux onset
+envelopes, which are commonly used for onset detection. We present a couple examples here
+to provide more insight into how the transient TCN network impacts this metric.
+
+First, here is a snare drum example where the transient network clearly improves the
+spectral flux over using sinusoids and sinusoids plus noise only.
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/research/drumblender_snare_sf.jpg" title="Snare Drum Spectral Flux Reconstruction" class="img-fluid rounded z-depth-1" width="100%" %}
+    </div>
+</div>
+
+Audio files containing the original (ground truth) followed shortly by a reconstruction:
+
+| $$S + N$$ | <audio controls class="player"><source src="/assets/audio/drumblender/snare_noise_combined.mp3" type="audio/mpeg"></audio> |
+| $$T(S) + N$$ | <audio controls class="player"><source src="/assets/audio/drumblender/snare_transient_combined.mp3" type="audio/mpeg"></audio> |
+
+<br />
+<div align="center">
+    <b>Which version do you think has a better transient?</b>
+</div>
+<br />
+
+Now, here is a counter example of a hihat where the transient network does not improve the spectral
+flux onset metric. 
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/research/drumblender_hihat_sf.jpg" title="Hi Hat Spectral Flux Reconstruction" class="img-fluid rounded z-depth-1" width="100%" %}
+    </div>
+</div>
+
+Audio files containing the original (ground truth) followed shortly by a reconstruction.
+We can also hear artefacts in the noise reconstruction -- potentially attempting to make
+up for a lack of higher harmonics in the sinusoidal modelling.
+
+| $$S + N$$ | <audio controls class="player"><source src="/assets/audio/drumblender/hihat_noise_combined.mp3" type="audio/mpeg"></audio> |
+| $$T(S) + N$$ | <audio controls class="player"><source src="/assets/audio/drumblender/hihat_transient_combined.mp3" type="audio/mpeg"></audio> |
+
+
 
 <br />
 ## Transient TCN Configuration
