@@ -11,7 +11,7 @@ category: research
 
 <br />
 <div align="center">
-    <a href="https://github.com/jorshi/drumblender"><i class="fab fa-github"></i> <b>Code</b></a>
+    <a href="https://github.com/jorshi/drumblender"><i class="fab fa-github"></i> <b>Code</b></a> | <a href="/assets/pdf/shier2023differentiable_paper.pdf"><i class="fas fa-paperclip"></i> <b>Paper</b></a>
 </div>
 
 <br />
