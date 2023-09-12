@@ -142,6 +142,8 @@ Realtime factor is calculated as the frame size in seconds at a sampling rate of
 divided by the time required to compute that frame size. A frame size greater than 1
 is required for real time processing.
 
+Computed on an Apple M1 Pro (cpu-only).
+
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/research/realtime_test.jpg" title="Realtime Factor" class="img-fluid rounded z-depth-1" width="100%" %}
