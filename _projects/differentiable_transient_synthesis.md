@@ -3,8 +3,9 @@ layout: page
 title: Differentiable Modeling of Percussive Audio with Transient and Spectral Synthesis
 description: 
 img: assets/img/research/onset-synth.jpg
-importance: 1
+importance: 2
 category: research
+front-desc: Percussive audio synthesis using a combination of sinusoidal modelling techniques and neural audio synthesis.
 ---
 
 <p style="text-align: center;">Jordie Shier, Franco Caspe, Andrew Robertson, Mark Sandler, Charalampos Saitis, and Andrew McPherson</p>
