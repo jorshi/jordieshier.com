@@ -653,3 +653,13 @@ html.transition *:after {
 .player {
   width: 100%;
 }
+
+// Custom (Jordie)
+
+a.disabled{
+  color: var(--global-theme-color);
+  &:hover {
+    color: var(--global-hover-color);
+    text-decoration: none;
+  }
+}
