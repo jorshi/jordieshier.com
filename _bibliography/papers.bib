@@ -2,6 +2,29 @@
 Articles
 ---
 
+@article{hayes2024review,
+  abbr={Frontiers},
+  author={Hayes, Ben and Shier, Jordie and Fazekas, György and McPherson, Andrew and Saitis, Charalampos},   
+  title={A review of differentiable digital signal processing for music and speech synthesis},      
+	journal={Frontiers in Signal Processing},      
+	volume={3},           
+	year={2024},
+	pdf={https://www.frontiersin.org/articles/10.3389/frsip.2023.1284100},       
+  abstract={The term “differentiable digital signal processing” describes a family of techniques in which loss function gradients are backpropagated through digital signal processors, facilitating their integration into neural networks. This article surveys the literature on differentiable audio signal processing, focusing on its use in music and speech synthesis. We catalogue applications to tasks including music performance rendering, sound matching, and voice transformation, discussing the motivations for and implications of the use of this methodology. This is accompanied by an overview of digital signal processing operations that have been implemented differentiably, which is further supported by a web book containing practical advice on differentiable synthesiser programming (<ext-link ext-link-type="uri" xlink:href="https://intro2ddsp.github.io/" xmlns:xlink="http://www.w3.org/1999/xlink">https://intro2ddsp.github.io/</ext-link>). Finally, we highlight open challenges, including optimisation pathologies, robustness to real-world conditions, and design trade-offs, and discuss directions for future research.}
+}
+
+@inproceedings{shier_2023_differentiable,
+  abbr={EAA},
+	title = {Differentiable Modelling of Percussive Audio with Transient and Spectral Synthesis},
+	author = {Shier, Jordie and Caspe, Franco and Robertson, Andrew and Sandler, Mark and Saitis, Charalampos and McPherson, Andrew},
+	year = 2023,
+	booktitle = {Proceedings of the 10th Convention of the European Acoustics Association Forum Acusticum 2023},
+  pdf={shier2023differentiable_paper.pdf},
+  code={https://github.com/jorshi/drumblender},
+  website={https://jordieshier.com/projects/differentiable_transient_synthesis/},
+  abstract = {Differentiable digital signal processing (DDSP) techniques, including methods for audio synthesis, have gained attention in recent years and lend themselves to interpretability in the parameter space. However, current differentiable synthesis methods have not explicitly sought to model the transient portion of signals, which is important for percussive sounds. In this work, we present a unified synthesis framework aiming to address transient generation and percussive synthesis within a DDSP framework. To this end, we propose a model for percussive synthesis that builds on sinusoidal modeling synthesis and incorporates a modulated temporal convolutional network for transient generation. We use a modified sinusoidal peak picking algorithm to generate time-varying non-harmonic sinusoids and pair it with differentiable noise and transient encoders that are jointly trained to reconstruct drumset sounds. We compute a set of reconstruction metrics using a large dataset of acoustic and electronic percussion samples that show that our method leads to improved onset signal reconstruction for membranophone percussion instruments.}
+}
+
 @inproceedings{shier2022dmrn,
   abbr={DMRN},
   title={Real-time timbre mapping for synthesized percussive performance},
