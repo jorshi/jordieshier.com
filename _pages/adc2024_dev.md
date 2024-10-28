@@ -1,6 +1,6 @@
 ---
 layout: external
-permalink: /adc2024/
+permalink: /adc2024_dev/
 nav: false
 ---
 
@@ -23,15 +23,6 @@ Jordie Shier<sup>1</sup>, Charalampos Saitis<sup>1</sup>, Andrew Robertson<sup>2
 </div>
 
 <hr />
-
-## Contents
-
-- [What is TorchDrum?](#what-is-torchdrum)
-- [Timbre Remapping](#timbre-remapping)
-- [Parameter Mapping Neural Network](#parameter-mapping-neural-network)
-- [Creating a Plugin](#creating-a-plugin)
-- [Further Reading](#further-reading)
-- [References](#references)
 
 ## What is TorchDrum?
 
@@ -62,7 +53,7 @@ variations in the input signal as *timbre remapping*.
 <br/>
 <hr />
 
-## Timbre Remapping
+## What is Timbre Remapping?
 
 Timbre remapping involves the analysis and transfer of timbre from an audio input onto
 controls for a synthesizer. To achieve timbre remapping we consider musical phrases where
@@ -85,7 +76,7 @@ sound (a modulated preset) for each hit in the input phrase.
 <br />
 <hr />
 
-## Parameter Mapping Neural Network
+## How does the Parameter Mapping Neural Network Work?
 
 The neural network enables real-time timbre remapping, allowing for input signals to be
 transformed with low-latency. The neural network we use is relatively small, but it contains
@@ -113,9 +104,8 @@ The main takeaway from the figure is that we're training the neural network to m
 *differences* in audio features between two difference hits. $$y = f(x_a) - f(x_b)$$
 is the difference between two different sounds in an input, and $$\hat{y} = f(x_c) - f(x_d)$$
 is the difference between a synthesiser preset and a modulated version of that
-preset. The goal of the neural network is create a parameter modulation $$\theta_{mod}$$, which is added
-to a static preset $$\theta_{pre}$$ so that $$y = \hat{y}$$. 
-Furthermore, the neural network is trained to make this prediction
+preset. The goal of the neural network is create a parameter modulation $$\theta_{mod}$$
+so that $$y = \hat{y}$$. Furthermore, the neural network is trained to make this prediction
 from onset features $$f_o(\cdot)$$ to allow for real-time parameter prediction.
 
 <br />
@@ -123,27 +113,32 @@ from onset features $$f_o(\cdot)$$ to allow for real-time parameter prediction.
 
 ## Creating a Plugin
 
-Neural network training is conducted in Python using [PyTorch](https://pytorch.org/). After
-training, the neural network is exported to [torchscript](https://pytorch.org/docs/stable/jit.html),
-allowing it to be loaded into a [JUCE Plugin](https://juce.com/) written in C++ with
-[torchlib](https://pytorch.org/cppdocs/).
-
-The components required for real-time inference, namely the onset detection, onset features,
-and the synthesiser were rewritten in C++ for the audio plug-in. To make sure the Python
-and C++ matched, we wrote unit tests that loaded the C++ into Python using [cppyy](https://cppyy.readthedocs.io/en/latest/)
-and compare the outputs.
-
-Here's a visual overview of the components required for training in Python and what 
-was included in the real-time plug-in.
-
-{% include figure.html path="assets/img/adc2024/implementation-details.gif" title="Implementation Details" class="img-fluid rounded z-depth-1" width="100%" %}
+Neural network training is conducted using PyTorch
 
 <br />
 <hr />
 
-## Further Reading
+## Plugin Overview
+
+<div class="image-container">
+    {% include figure.html path="assets/img/adc2024/plugin-ui.jpg" title="MLP Parameter Mapping Overview" class="img-fluid rounded z-depth-1" width="100%" %}
+
+  <!-- Plus buttons -->
+<div class="plus-button" data-info="Audio features are extracted from input audio at detected onsets. These features (visualized in the radar plot) are passed as input to a neural network, which generates modulations for synthesis parmeters." style="top: 12%; left: 37%;">+</div>
+    <div class="plus-button" data-info="The drum synthesizer is modeled on an 808 snare drum. These parameters modify the sound and are modulated by a neural network. The inner ring controls the parameter value outer ring displays the modulation applied by the neural net." style="top: 15%; left: 67%;">+</div>
+    <div class="plus-button" data-info="Onset detection is used to detect percussive events in input audio. The graph shows the amplitude envelope of the input and controls below are used to adjust detection parameters." style="top: 65%; left: 45%;">+</div>
+    <div class="plus-button" data-info="Global controls. Dry/Wet allows for mixing of input audio and the drum synth. 'Neurality' is the strength of the neural network modulation -- zero is no modulation and increasing values lead to more extreme reaction to the input" style="top: 67%; left: 7%;">+</div>
+    <div class="plus-button" data-info="Load a preset and modulation neural network. Neural network models are trained offline to react to input audio and modulate parameters of a preset to match the dynamic and timbral expression of a performance. Train your own models on Google Colab or experiment with pre-trained models." style="top: 5%; left: 2%;">+</div>
+  <!-- Add more plus buttons as needed -->
+</div>
+
+<!-- Information Box -->
+<div id="info-box" style="display: none;">
+  <p id="info-content"></p>
+  <button onclick="closeInfo()">Close</button>
+</div>
 
 <br />
-<hr />
+## What is TorchDrum?
 
-## References
+<iframe width="770" height="440" src="https://www.youtube.com/embed/IVaNfp4rev0?si=_Ja3pAfqm_34z5bH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
