@@ -1,0 +1,74 @@
+<script>
+    let selected = "btn-secondary";
+    let deselected = "btn-outline-secondary";
+    let audioTracks = {};
+
+    jQuery("document").ready(function() {
+        
+        jQuery("video").each(function() {
+          var  player = videojs(this);
+          player.fluid(true);
+          audioTracks[player.id()] = {};
+
+          player.on("loadeddata", function() {
+            const tracks = this.audioTracks();
+            for (var i = 0; i < tracks.length; i++)
+            {
+              var track = tracks[i];
+              if (track.label === "original") {
+                track.enabled = true;
+                track.label = "mixed";
+                audioTracks[this.id()]["mixed"] = track;
+              } else if (track.label === "synth") {
+                track.enabled = false;
+                audioTracks[this.id()]["synth"] = track;
+              } else if (track.label === "drum") {
+                track.enabled = false;
+                audioTracks[this.id()]["drum"] = track;
+              }
+            }
+          })
+        });
+
+
+        jQuery(".audio-switch").each(function() {
+            var videoId = jQuery(this).attr("video-id");
+
+            jQuery(this).find("input").each(function() {
+                var button = jQuery(this);
+                var checked = button.attr("checked");
+                var label = button.parent();
+                if (typeof checked !== 'undefined' && checked !== false) {
+                    label.removeClass(deselected);
+                    label.addClass(selected);
+                } else {
+                    label.removeClass(selected);
+                    label.addClass(deselected);
+                }
+                button.click(function() {
+                    let mix = button.attr("value");
+                    switchAudio(videoId, mix);
+
+                    jQuery(this).parent().siblings().removeClass(selected).addClass(deselected);
+                    label.addClass(selected);
+                    label.removeClass(deselected);
+                });
+            });
+        });
+    });
+
+
+    function switchAudio(videoId, mix) {
+        var player = videojs(videoId);
+        var tracks = player.audioTracks();
+        console.log(audioTracks);
+        if (tracks.length > 1) {
+          for (let i = 0; i < tracks.length; i++) {
+            tracks[i].enabled = false;
+          }
+          audioTracks[videoId][mix].enabled = true;
+        } else {
+            console.log("Only one video track");
+        }
+    };
+</script>

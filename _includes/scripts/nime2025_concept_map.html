@@ -1,0 +1,225 @@
+<script>
+    function setupConceptMap() {
+      // --------------------------------------------------
+      // 1. Define data (with optional 'url' property)
+      // --------------------------------------------------
+      const nodesData = [
+        // Example nodes with a URL
+        { id: "Derailer", type: "example", url: "#derailer" },
+        { id: "Modular Synthesizer", type: "example", url: "#modular-synthesizer" },
+        { id: "808 Snare", type: "example", url: "#808-snare" },
+        { id: "Loudness Compensation", type: "example", url: "#loudness-compensation" },
+        { id: "Classification", type: "example", url: "#classification--parallel-timbre-remapping" },
+        { id: "Timescale Morphing", type: "example", url: "#multiple-timescale-morphing" },
+        { id: "Latent Control", type: "example", url: "#latent-feature-control" },
+        { id: "Mult-Feature Timescale Morphing", type: "example", url: "#multiple-timescale--multiple-feature-morphing" },
+  
+        // Concept nodes (no URL needed)
+        { id: "Navigating Pitch", type: "concept" },
+        { id: "Morphology", type: "concept" },
+        { id: "High-Level Control", type: "concept" },
+        { id: "Direct Mapping", type: "concept" },
+        { id: "Mapping Intermodulations", type: "concept" }
+      ];
+  
+      const linksData = [
+        { source: "Derailer", target: "Mapping Intermodulations" },
+        { source: "Derailer", target: "Navigating Pitch" },
+        { source: "Derailer", target: "Direct Mapping" },
+        { source: "Modular Synthesizer", target: "High-Level Control" },
+        { source: "808 Snare", target: "Navigating Pitch" },
+        { source: "Loudness Compensation", target: "Direct Mapping" },
+        { source: "Classification", target: "Direct Mapping" },
+        { source: "Classification", target: "Mapping Intermodulations" },
+        { source: "Timescale Morphing", target: "Morphology" },
+        { source: "Timescale Morphing", target: "High-Level Control" },
+        { source: "Timescale Morphing", target: "Direct Mapping" },
+        { source: "Latent Control", target: "High-Level Control" },
+        { source: "Mult-Feature Timescale Morphing", target: "Morphology" },
+        { source: "Mult-Feature Timescale Morphing", target: "High-Level Control" },
+        { source: "Mult-Feature Timescale Morphing", target: "Direct Mapping" }
+      ];
+  
+      // --------------------------------------------------
+      // 2. Create SVG and Force Simulation
+      // --------------------------------------------------
+      const svg = d3.select("#graph");
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+  
+      // Node radius (for circles) and half-size (for squares)
+      const nodeRadius = 14;
+  
+      // Create a force simulation
+      const simulation = d3
+        .forceSimulation(nodesData)
+        .force(
+          "link",
+          d3.forceLink(linksData)
+            .id((d) => d.id)
+            // .distance(250) // Uncomment & adjust if you want more spacing
+        )
+        // .force("charge", d3.forceManyBody().strength(1))
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        // Increase collision radius if needed to spread nodes further
+        .force("collision", d3.forceCollide().radius(nodeRadius * 5.0));
+  
+      // --------------------------------------------------
+      // 3. Add links (as lines)
+      // --------------------------------------------------
+      const link = svg
+        .selectAll("line.link")
+        .data(linksData)
+        .enter()
+        .append("line")
+        .attr("class", "link")
+        .style("stroke", "#999")
+        .style("stroke-opacity", 0.6)
+        .style("stroke-width", 2);
+  
+      // --------------------------------------------------
+      // 4. Add nodes as circles (examples) and squares (concepts)
+      // --------------------------------------------------
+  
+      // ---- 4a. Example Nodes (circles) ----
+      const exampleNodes = svg
+        .selectAll("circle.example")
+        .data(nodesData.filter((d) => d.type === "example"))
+        .enter()
+        .append("circle")
+        .attr("class", "example node")
+        .attr("r", nodeRadius)
+        .style("fill", "#69b3a2")
+        .style("cursor", "pointer")
+        .call(drag(simulation))
+        .on("click", (event, d) => {
+          // Only open link if node has a URL
+          if (d.url) {
+            document.location.hash = d.url;
+          }
+        });
+  
+      // ---- 4b. Concept Nodes (squares) ----
+      const conceptNodes = svg
+        .selectAll("rect.concept")
+        .data(nodesData.filter((d) => d.type === "concept"))
+        .enter()
+        .append("rect")
+        .attr("class", "concept node")
+        // We'll center the square by shifting x,y by nodeRadius
+        .attr("width", nodeRadius * 2)
+        .attr("height", nodeRadius * 2)
+        .style("fill", "#ffa600")
+        .style("cursor", "default")
+        .call(drag(simulation));
+  
+      // --------------------------------------------------
+      // 5. Add text labels for all nodes
+      // --------------------------------------------------
+      const label = svg
+        .selectAll("text.label")
+        .data(nodesData)
+        .enter()
+        .append("text")
+        .attr("class", "label")
+        .attr("dy", "-1.4em") // Position slightly above each shape
+        .attr("text-anchor", "middle")
+        .style("pointer-events", "none") // Let clicks pass through to shapes
+        .style("font-size", "0.8rem")
+        .text((d) => d.id);
+  
+      // --------------------------------------------------
+      // 6. Simulation on-tick + boundary clamp
+      // --------------------------------------------------
+      simulation.on("tick", () => {
+        // Position the links
+        link
+          .attr("x1", (d) => d.source.x)
+          .attr("y1", (d) => d.source.y)
+          .attr("x2", (d) => d.target.x)
+          .attr("y2", (d) => d.target.y);
+  
+        // ---- Circles (Example Nodes) ----
+        exampleNodes
+          .attr("cx", (d) => {
+            // Clamp x so circle stays in view
+            d.x = Math.max(nodeRadius * 8.0, Math.min(width - nodeRadius * 8.0, d.x));
+            return d.x;
+          })
+          .attr("cy", (d) => {
+            // Clamp y so circle stays in view
+            d.y = Math.max(nodeRadius * 8.0, Math.min(height - nodeRadius * 8.0, d.y));
+            return d.y;
+          });
+  
+        // ---- Squares (Concept Nodes) ----
+        conceptNodes
+          .attr("x", (d) => {
+            // Clamp so square stays in view
+            // Because the square is drawn from (x, y) as the top-left corner
+            // we treat (d.x, d.y) as the center and shift by nodeRadius
+            const half = nodeRadius; 
+            d.x = Math.max(half * 5.0, Math.min(width - half * 5.0, d.x));
+            return d.x - half;
+          })
+          .attr("y", (d) => {
+            const half = nodeRadius;
+            d.y = Math.max(half * 5.0, Math.min(height - half * 5.0, d.y));
+            return d.y - half;
+          });
+  
+        // ---- Labels ----
+        label
+          .attr("x", (d) => d.x)
+          .attr("y", (d) => d.y);
+      });
+  
+      // --------------------------------------------------
+      // 7. Drag Behavior
+      // --------------------------------------------------
+      function drag(simulation) {
+        function dragstarted(event, d) {
+          if (!event.active) simulation.alphaTarget(0.3).restart();
+          d.fx = d.x;
+          d.fy = d.y;
+        }
+        function dragged(event, d) {
+          d.fx = event.x;
+          d.fy = event.y;
+        }
+        function dragended(event, d) {
+          if (!event.active) simulation.alphaTarget(0);
+          d.fx = null;
+          d.fy = null;
+        }
+        return d3
+          .drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended);
+      }
+  
+        // Add Legend
+        svg.append("circle")
+            .attr("cx",nodeRadius * 2.0)
+            .attr("cy",nodeRadius * 2.0)
+            .attr("r", nodeRadius * 0.75)
+            .style("fill", "#69b3a2");
+        svg.append("rect")
+            .attr("x",nodeRadius * 1.25)
+            .attr("y",nodeRadius * 3.5)
+            .attr("width", nodeRadius * 1.5)
+            .attr("height", nodeRadius * 1.5)
+            .style("fill", "#ffa600")
+        svg.append("text").attr("x",nodeRadius * 3.25).attr("y",nodeRadius * 2.).text("patch").style("font-size", "15px").attr("alignment-baseline","middle")
+        svg.append("text").attr("x",nodeRadius * 3.25).attr("y",nodeRadius * 4.25).text("concept").style("font-size", "15px").attr("alignment-baseline","middle")
+    }
+  
+    jQuery(document).ready(function() {
+      const graph = jQuery("#graph");
+      const parentWidth = graph.parent().width();
+      graph.attr("width", parentWidth);
+      setupConceptMap();
+    });
+  
+  </script>
