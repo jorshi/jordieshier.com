@@ -4,7 +4,7 @@ title: Synth Mapper
 description: 
 img: assets/img/research/synthmapper.jpg
 importance: 4
-category: research
+category: hide
 front-desc: Variational autoencoders for control over synthesizer parameters. Paired with evolutionary data generators to guide learning towards desired sounds.
 ---
 

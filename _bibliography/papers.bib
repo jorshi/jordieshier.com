@@ -2,6 +2,39 @@
 Articles
 ---
 
+@article{caspe2025designing,
+  abbr={JAES},
+  title={Designing Neural Synthesizers for Low Latency Interaction},
+  author={Caspe, Franco and Shier, Jordie and Sandler, Mark and Saitis, Charalampos and McPherson, Andrew},
+  journal={Journal of the Audio Engineering Society},
+  year={2025},
+  arxiv={2503.11562},
+  abstract={Neural Audio Synthesis (NAS) models offer interactive musical control over high-quality, expressive audio generators. While these models can operate in real-time, they often suffer from high latency, making them unsuitable for intimate musical interaction. The impact of architectural choices in deep learning models on audio latency remains largely unexplored in the NAS literature. In this work, we investigate the sources of latency and jitter typically found in interactive NAS models. We then apply this analysis to the task of timbre transfer using RAVE, a convolutional variational autoencoder for audio waveforms introduced by Caillon et al. in 2021. Finally, we present an iterative design approach for optimizing latency. This culminates with a model we call BRAVE (Bravely Realtime Audio Variational autoEncoder), which is low-latency and exhibits better pitch and loudness replication while showing timbre modification capabilities similar to RAVE. We implement it in a specialized inference framework for low-latency, real-time inference and present a proof-of-concept audio plugin compatible with audio signals from musical instruments. We expect the challenges and guidelines described in this document to support NAS researchers in designing models for low-latency inference from the ground up, enriching the landscape of possibilities for musicians.},
+  code={https://github.com/fcaspe/BRAVE},
+  link1_url={https://fcaspe.github.io/BravePlugin/},
+  link1_text={Plugin},
+}
+
+@inproceedings{saitis2024ethnographic,
+  abbr={CHIME},
+  title={Ethnographic Exploration of Timbre in Hackathon Designs},
+  author={Saitis, Charalampos and Del Sette, Bleiz Macsen and Tian, Haokun and Shier, Jordie and Zheng, Shuoyang and Skach, Sophie and Reed, Courtney N and Ford, Corey},
+  year={2024},
+  booktitle={CHIME Annual Conference},
+  pdf={Saitis_CHIME24_TimbreEthno.pdf},
+  abstract={This paper reports a summary account of the Timbre Tools Hackathon: a hackathon that invited audio developers and music technologists to consider and work with timbre through the design of tools that promote a timbre-first approach to digital instrument craft practice—timbre tools. Through ethnographic observation, we identified different approaches towards integrating timbre as an active part of creating tools and technologies in music. These strategies inform future work and the development of tools to assist awareness and exploration of timbre for instrument makers.}
+}
+
+@inproceedings{saitis2024timbre,
+  abbr={AM},
+  author = {Saitis, Charalampos and Del Sette, Bleiz M and Shier, Jordie and Tian, Haokun and Zheng, Shuoyang and Skach, Sophie and Reed, Courtney N. and Ford, Corey},
+  title = {Timbre Tools: Ethnographic Perspectives on Timbre and Sonic Cultures in Hackathon Designs},
+  year = {2024},
+  abstract = {Timbre is a nuanced yet abstractly defined concept. Its inherently subjective qualities make it challenging to design and work with. In this paper, we propose to explore the conceptualisation and negotiation of timbre within the creative practice of timbre tool makers. To this end, we hosted a hackathon event and performed an ethnographic study to explore how participants engaged with the notion of timbre and how their conception of timbre was shaped through social interactions and technological encounters. We present individual descriptions of each team’s design process and reflect on our data to identify commonalities in the ways that timbre is understood and informed by sound technologies and their surrounding sonic cultures, e.g., by relating concepts of timbre to metaphors. We further current understanding by offering novel interdisciplinary and multimodal insights into understandings of timbre.},
+  booktitle = {Proceedings of the 19th International Audio Mostly Conference: Explorations in Sonic Cultures},
+  pdf={https://dl.acm.org/doi/pdf/10.1145/3678299.3678322}
+}
+
 @inproceedings{shier2024real,
   abbr={NIME},
   title={Real-time timbre remapping with differentiable DSP},
