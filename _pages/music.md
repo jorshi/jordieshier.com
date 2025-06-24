@@ -3,7 +3,7 @@ layout: page
 title: music
 permalink: /music/
 description: ... and other projects that I have contributed sounds to.
-nav: true
+nav: false
 nav_order: 2
 display_categories: [music]
 horizontal: false
