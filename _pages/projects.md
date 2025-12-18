@@ -1,13 +1,12 @@
 ---
 layout: page
-title: research
-permalink: /research/
+title: projects
+permalink: /projects/
 #description: ... and other projects that I have contributed sounds to.
-nav: false
+nav: true
 nav_order: 2
 display_categories: [research]
 horizontal: true
-redirect_to: /projects/
 ---
 
 <!-- pages/projects.md -->

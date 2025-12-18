@@ -1,6 +1,27 @@
 ---
 Articles
 ---
+@inproceedings{shier2025designing,
+  abbr={NIME},
+  title={Designing Percussive Timbre Remappings: Negotiating Audio Representations and Evolving Parameter Spaces},
+  author={Shier, Jordie and Constanzo, Rodrigo and Saitis, Charalampos and Robertson, Andrew and McPherson, Andrew},
+  booktitle={International {{Conference}} on {{New Interfaces}} for {{Musical Expression}}},
+  pdf={https://nime.org/proceedings/2025/nime2025_66.pdf},
+  abstract={Timbre remapping is an approach to audio-to-synthesizer parameter mapping that aims to transfer timbral expressions from a source instrument onto synthesizer controls. This process is complicated by the ill-defined nature of timbre and the complex relationship between synthesizer parameters and their sonic output. In this work, we focus on real-time timbre remapping with percussion instruments, combining technical development with practice-based methods to address these challenges. As a technical contribution, we introduce a genetic algorithm—applicable to black-box synthesizers including VSTs and modular synthesizers—to generate datasets of synthesizer presets that vary according to target timbres. Additionally, we propose a neural network-based approach to predict control features from short onset windows, enabling low-latency performance and featurebased control. Our technical development is grounded in musical practice, demonstrating how iterative and collaborative processes can yield insights into open-ended challenges in DMI design. Experiments on various audio representations uncover meaningful insights into timbre remapping by coupling data-driven design with practice-based reflection. This work is accompanied by an annotated portfolio, presenting a series of musical performances and experiments with reflections.},
+  website={https://jordieshier.com/projects/nime2025/},
+  year={2025},
+}
+
+@inproceedings{wolstanholme_drum_2025,
+  abbr={NIME},
+  title={Drum {{Modal Feedback}}: {{Concept Design}} of an {{Augmented Percussion Instrument}}},
+  booktitle={International {{Conference}} on {{New Interfaces}} for {{Musical Expression}}},
+  author={Wolstanholme, Lewis and Shier, Jordie and Constanzo, Rodrigo and McPherson, Andrew},
+  pdf={https://nime.org/proceedings/2025/nime2025_15.pdf},
+  abstract={We here outline the concept design of an augmented percussion instrument, conceived for and used as part of a variety of distinct performances and compositions. Throughout the curation of this project, each creative act has enabled us to contextualise, examine and reflect upon the design of this augmented instrument. In accordance with Stolterman and Wiberg’s concept driven design methodology, we do not present a singular instrument design, but instead an overarching design concept alongside its developmental and evaluative narrative. This augmentation centres upon the use of a drum trigger and a tactile transducer, which when coupled together can be used to feedback or resonate a drum. The resultant soundworld develops upon the idiomatic sonority of a drum, and allows for the duration and timbre of a drum strike to be continuously manipulated and shaped throughout a performance. In exploring the soundworld which results from this approach, we have experimented with numerous configurations of these pieces of hardware, and have also employed various pieces of software to parametrise the sonic subtleties that this approach engenders. Most prominently, we have developed a bespoke piece of software which analyses the modes of a drum prior to performance, and uses this modal analysis to shape the overall feedback and resonance. Throughout this design process, we have consistently been met with new creative criteria that challenge our approach and ideas, in response to the particularities of the musicians we are working alongside, as well as the performative and aesthetic environments we are working within.},
+  year={2025},
+}
+
 
 @article{caspe2025designing,
   abbr={JAES},
@@ -40,7 +61,7 @@ Articles
   title={Real-time timbre remapping with differentiable DSP},
   author={Shier, Jordie and Saitis, Charalampos and Robertson, Andrew and McPherson, Andrew},
   year={2024},
-  booktitle={New Interfaces for Musical Expression},
+  booktitle={International {{Conference}} on {{New Interfaces}} for {{Musical Expression}}},
   arxiv={2407.04547},
   abstract={Timbre is a primary mode of expression in diverse musical contexts. However, prevalent audio-driven synthesis methods predominantly rely on pitch and loudness envelopes, effectively flattening timbral expression from the input. Our approach draws on the concept of timbre analogies and investigates how timbral expression from an input signal can be mapped onto controls for a synthesizer. Leveraging differentiable digital signal processing, our method facilitates direct optimization of synthesizer parameters through a novel feature difference loss. This loss function, designed to learn relative timbral differences between musical events, prioritizes the subtleties of graded timbre modulations within phrases, allowing for meaningful translations in a timbre space. Using snare drum performances as a case study, where timbral expression is central, we demonstrate real-time timbre remapping from acoustic snare drums to a differentiable synthesizer modeled after the Roland TR-808.},
   code={https://github.com/jorshi/ddsp-timbre-remap},
@@ -84,13 +105,13 @@ Articles
 }
 
 @article{turian2022hear,
-  abbr={arXiv},
+  abbr={PMLR},
   abstract={What audio embedding approach generalizes best to a wide range of downstream tasks across a variety of everyday domains without fine-tuning? The aim of the HEAR benchmark is to develop a general-purpose audio representation that provides a strong basis for learning in a wide variety of tasks and scenarios. HEAR evaluates audio representations using a benchmark suite across a variety of domains, including speech, environmental sound, and music. HEAR was launched as a NeurIPS 2021 shared challenge. In the spirit of shared exchange, each participant submitted an audio embedding model following a common API that is general-purpose, open-source, and freely available to use. Twenty-nine models by thirteen external teams were evaluated on nineteen diverse downstream tasks derived from sixteen datasets. Open evaluation code, submitted models and datasets are key contributions, enabling comprehensive and reproducible evaluation, as well as previously impossible longitudinal studies. It still remains an open question whether one single general-purpose audio representation can perform as holistically as the human ear.},
-  title={Hear 2021: Holistic evaluation of audio representations},
+  title={HEAR: Holistic Evaluation of Audio Representations},
   author={Turian, Joseph and Shier, Jordie and Khan, Humair Raj and Raj, Bhiksha and Schuller, Bj{\"o}rn W and Steinmetz, Christian J and Malloy, Colin and Tzanetakis, George and Velarde, Gissel and McNally, Kirk and Henry, Max and Pinto, Nicolas and Noufi, Camille and Clough, Christian and Herremans, Dorien and Fonseca, Eduardo and Engel, Jesse and Salamon, Justin and Esling, Philippe and Manocha, Pranay and Watanabe, Shinji and Jin, Zeyu and Bisk, Yonatan},
-  journal={arXiv preprint},
+  journal={NeurIPS 2021 Competitions and Demonstrations Track (pp. 125-145). PMLR.},
   year={2022},
-  arxiv={2203.03022}
+  pdf={https://proceedings.mlr.press/v176/turian22a/turian22a.pdf}
 }
 
 @inproceedings{turian2021one,
