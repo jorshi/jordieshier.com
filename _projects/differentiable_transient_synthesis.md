@@ -3,8 +3,9 @@ layout: page
 title: Differentiable Modeling of Percussive Audio with Transient and Spectral Synthesis
 description: 
 img: assets/img/research/onset-synth.jpg
-importance: 5
+timeline: 3
 category: research
+published: true
 front-desc: Improving transient response for percussive audio synthesis using a combination of sinusoidal modelling techniques and neural audio synthesis.
 ---
 
