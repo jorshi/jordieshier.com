@@ -1,0 +1,8 @@
+id,name,type,description
+0,Kick,Input,
+1,InputClassify,Gesture Recognition,No classification — just onset detection
+2,Snare,Input,
+3,InputBuzz,Gesture Recognition,Detects buzz stroke rolls
+4,InputClassify,Gesture Recognition,"Head/rim discrimination, sustained by InputBuzz"
+5,DS Kick,Synthesizer,
+6,Abel Bass,Synthesizer,
