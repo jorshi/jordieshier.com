@@ -1,0 +1,7 @@
+from,to,type,description
+0,1,trigger,Onset detection
+2,3,trigger,Raw audio for buzz analysis
+2,4,trigger,Head/rim hit
+3,4,gate,Sustains classification during buzz rolls
+1,5,trigger,Fires kick sample
+1,6,trigger,Fires bass sample

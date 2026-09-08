@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
+
+  <!-- Head -->
+  <head>
+  {%- if page.redirect -%}
+    <meta http-equiv="refresh" content="3; url={{ site.baseurl | prepend: site.url }}/" />
+  {%- endif -%}
+  {% include head.html %}
+
+  <!-- Brand-substitute fonts:
+       JetBrains Mono ≈ Aeonik Fono Medium (display + caption)
+       Inter          ≈ TT Commons Pro Regular (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <!-- Page-scoped styles: only this layout loads them. -->
+  <link rel="stylesheet" href="{{ '/assets/css/aimc2026.css' | relative_url }}">
+  </head>
+
+  <!-- Body -->
+  <body class="aimc-portfolio {% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+
+    <!-- Header -->
+    {%- include header.html %}
+
+    <!-- Content -->
+    {%- assign tracks = site.data.aimc2026.tracks -%}
+    <article class="portfolio">
+
+      <header class="portfolio-header">
+        {%- if page.eyebrow and page.eyebrow != "" %}
+          <p class="portfolio-eyebrow">{{ page.eyebrow }}</p>
+        {%- endif %}
+        <h1 class="portfolio-title">{{ page.title | escape }}</h1>
+        {%- if page.authors and page.authors != "" %}
+          <p class="portfolio-authors">{{ page.authors }}</p>
+        {%- endif %}
+        {%- if page.subtitle and page.subtitle != "" %}
+          <p class="portfolio-subtitle">{{ page.subtitle }}</p>
+        {%- endif %}
+
+        {%- if page.materials and page.materials.size > 0 %}
+        <section class="portfolio-materials" aria-label="Supplementary materials">
+          <p class="portfolio-materials-label">Materials</p>
+          <ul class="portfolio-materials-list" role="list">
+            {%- for material in page.materials %}
+            <li>
+              {%- if material.url and material.url != "" %}
+              {%- assign _external = false -%}
+              {%- if material.url contains '://' %}{% assign _external = true %}{% endif -%}
+              <a class="portfolio-material"
+                 href="{% if _external %}{{ material.url }}{% else %}{{ material.url | relative_url }}{% endif %}"
+                 target="_blank" rel="noopener">
+                <span class="portfolio-material-name">{{ material.name }}</span>
+                <span class="portfolio-material-meta">
+                  <span>{{ material.meta | default: 'Link' }}</span>
+                  <svg class="portfolio-material-icon" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+                    {%- if _external %}
+                    <path d="M5 2.5 H2 V12 H11.5 V9 M8 2.5 H11.5 V6 M11.5 2.5 L6 8"
+                          fill="none" stroke="currentColor" stroke-width="1.25"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                    {%- else %}
+                    <path d="M7 1.5 V9.5 M3.5 6 L7 9.5 L10.5 6 M1.5 12.5 H12.5"
+                          fill="none" stroke="currentColor" stroke-width="1.25"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                    {%- endif %}
+                  </svg>
+                </span>
+              </a>
+              {%- else %}
+              <span class="portfolio-material portfolio-material--upcoming" aria-disabled="true">
+                <span class="portfolio-material-name">{{ material.name }}</span>
+                <span class="portfolio-material-meta">{{ material.meta }}</span>
+              </span>
+              {%- endif %}
+            </li>
+            {%- endfor %}
+          </ul>
+        </section>
+        {%- endif %}
+      </header>
+
+      {%- if tracks and tracks.size > 0 -%}
+      <section class="portfolio-section" aria-labelledby="annotated-portfolio">
+
+        <header class="portfolio-section-header">
+          <h2 class="portfolio-section-title" id="annotated-portfolio">Annotated Portfolio</h2>
+          {%- if content and content != "" -%}
+            <div class="portfolio-section-lead">
+              {{ content }}
+            </div>
+          {%- endif -%}
+        </header>
+
+        <nav class="portfolio-toc" aria-label="Track index">
+          <p class="portfolio-toc-label">Tracks</p>
+          <ol class="portfolio-toc-list" role="list">
+            {%- for track in tracks -%}
+            <li>
+              <a href="#track-{{ track.number }}">
+                <span class="portfolio-toc-num">{{ track.number | prepend: '00' | slice: -2, 2 }}</span>
+                <span class="portfolio-toc-name">{{ track.title | escape }}</span>
+              </a>
+            </li>
+            {%- endfor -%}
+          </ol>
+        </nav>
+
+      <section class="portfolio-tracks" aria-label="Annotated album">
+
+        {%- for track in tracks -%}
+        {%- comment -%}
+          Resolve the Cloudflare Stream UID from whatever was pasted into
+          `stream_uid`. Accepts:
+            - bare UID:    f5712dfaedf5b59e380e98685b6a44b3
+            - manifest URL: https://customer-XXXX.cloudflarestream.com/<UID>/manifest/video.m3u8
+            - iframe URL:   https://customer-XXXX.cloudflarestream.com/<UID>/iframe
+            - generic URL:  https://iframe.videodelivery.net/<UID>
+          In every case, segment index 3 of a "/"-split URL holds the UID.
+        {%- endcomment -%}
+        {%- assign _stream_parts = track.stream_uid | split: '/' -%}
+        {%- if _stream_parts.size > 1 -%}
+          {%- assign _stream_uid = _stream_parts[3] -%}
+        {%- else -%}
+          {%- assign _stream_uid = track.stream_uid -%}
+        {%- endif -%}
+
+        <article class="track" id="track-{{ track.number }}">
+
+          <header class="track-header">
+            <p class="track-caption">
+              <span class="track-caption-num">Track {{ track.number | prepend: '00' | slice: -2, 2 }}</span>
+              {%- if track.duration and track.duration != "" and track.duration != "0:00" %}
+                <span class="track-caption-sep" aria-hidden="true">·</span>
+                <span class="track-caption-time">{{ track.duration }}</span>
+              {%- endif %}
+            </p>
+            <h2 class="track-title">{{ track.title | escape }}</h2>
+            {%- if track.performers and track.performers != "" %}
+              <p class="track-performers">{{ track.performers | escape }}</p>
+            {%- endif %}
+          </header>
+
+          <div class="track-video">
+            <div class="track-video-frame">
+              <iframe
+                src="https://iframe.videodelivery.net/{{ _stream_uid }}"
+                loading="lazy"
+                allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
+                allowfullscreen
+                title="{{ track.title | escape }}"></iframe>
+            </div>
+          </div>
+
+          {%- comment -%}
+            Per-track flow data lives in _data/aimc2026/flows/track-N/{nodes,edges}.csv.
+            We look it up by computed key, and if both nodes and edges exist
+            the layout embeds the data as JSON for the renderer in aimc2026_flow.js.
+          {%- endcomment -%}
+          {%- assign _flow_key = 'track-' | append: track.number -%}
+          {%- assign _flow = site.data.aimc2026.flows[_flow_key] -%}
+          {%- assign _has_flow = false -%}
+          {%- if _flow and _flow.nodes and _flow.edges -%}{%- assign _has_flow = true -%}{%- endif -%}
+
+          {%- assign _has_reflection = false -%}
+          {%- if track.reflection and track.reflection != "" -%}{%- assign _has_reflection = true -%}{%- endif -%}
+
+          {%- assign _has_tech_text = false -%}
+          {%- if track.technical and track.technical != "" -%}{%- assign _has_tech_text = true -%}{%- endif -%}
+
+          {%- if _has_reflection or _has_tech_text or _has_flow -%}
+          <div class="track-content">
+
+            {%- if _has_reflection -%}
+            <details class="track-disclosure" open>
+              <summary>
+                <span class="track-disclosure-label">Reflection</span>
+                <span class="track-disclosure-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="track-disclosure-body">
+                {{ track.reflection | markdownify }}
+              </div>
+            </details>
+            {%- endif -%}
+
+            {%- if _has_tech_text or _has_flow -%}
+            <details class="track-disclosure">
+              <summary>
+                <span class="track-disclosure-label">Technical details</span>
+                <span class="track-disclosure-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="track-disclosure-body">
+                {%- if _has_flow -%}
+                <div class="track-flow" data-flow>
+                  <script type="application/json" data-flow-data>{"nodes":{{ _flow.nodes | jsonify }},"edges":{{ _flow.edges | jsonify }}}</script>
+                </div>
+                {%- endif -%}
+                {%- if _has_tech_text -%}
+                  {{ track.technical | markdownify }}
+                {%- endif -%}
+              </div>
+            </details>
+            {%- endif -%}
+
+          </div>
+          {%- endif -%}
+
+        </article>
+
+        {%- unless forloop.last -%}
+        <hr class="track-divider" aria-hidden="true">
+        <div class="track-rest" aria-hidden="true">
+          {%- comment -%}
+            Small "rest" mark — three short ticks and a dot, echoing the
+            tasteful music-symbol dividers in the brand this page borrows from.
+          {%- endcomment -%}
+          <svg viewBox="0 0 64 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+            <line x1="6"  y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/>
+            <line x1="20" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="2"/>
+            <line x1="34" y1="8" x2="42" y2="8" stroke="currentColor" stroke-width="2"/>
+            <circle cx="52" cy="8" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        {%- endunless -%}
+
+        {%- endfor -%}
+
+        </section>
+
+      </section>
+
+      {%- else -%}
+      <p class="portfolio-empty">
+        No tracks found. Add entries to <code>_data/aimc2026/tracks.yml</code> to populate the portfolio.
+      </p>
+      {%- endif -%}
+
+    </article>
+
+    <!-- Footer -->
+    {%- include footer.html %}
+
+    <!-- JavaScripts -->
+    {% include scripts/jquery.html %}
+    {% include scripts/bootstrap.html %}
+    {% include scripts/misc.html %}
+    {% include scripts/mathjax.html %}
+    {% include scripts/analytics.html %}
+    {% include scripts/d3.html %}
+    <script defer src="{{ '/assets/js/aimc2026_flow.js' | relative_url }}"></script>
+  </body>
+</html>
