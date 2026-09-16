@@ -26,10 +26,9 @@ notes:
   title: What's not in the pack yet
   # Markdown. Lists, paragraphs, and links all work.
   body: |-
-    This first release doesn't yet include everything described in the paper:
-
-    - TODO: missing item
-    - TODO: missing item
+    There are a couple missing pieces -- coming soon.
+    - TODO: Genetic algorithm for timbre remapping running in Ableton with M4L. Check out our [NIME paper](https://jordieshier.com/projects/nime2025/) from last year, which includes a Max package for running timbre remapping with synths.
+    - TODO: Training continuous models directly in Ableton with M4L. For now, you have to use the Python code (below) to create new continuous models.
   links_label: Code
   links:
     - name: Python Code
