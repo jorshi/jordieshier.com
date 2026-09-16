@@ -33,7 +33,7 @@ notes:
   links:
     - name: Python Code
       meta: GitHub
-      url: ""   # TODO: add the repository URL. While empty, the row shows as muted/unlinked.
+      url: https://github.com/jorshi/aimc26-drum-gesture
 ---
 
 The drum gesture mapping toolkit developed alongside the AIMC 2026 paper.
