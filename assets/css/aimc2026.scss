@@ -644,6 +644,94 @@ body.aimc-portfolio {
   }
 
   /* ============================================================
+     Toolkit page (_layouts/aimc-toolkit.html)
+     ============================================================ */
+
+  a.toolkit-back {
+    display: inline-block;
+    margin: 0 0 2.5rem;
+    font-family: var(--aimc-font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--aimc-fg-muted);
+    text-decoration: none;
+  }
+
+  a.toolkit-back:hover,
+  a.toolkit-back:focus-visible {
+    color: var(--aimc-accent);
+    text-decoration: none;
+  }
+
+  .toolkit .portfolio-header .portfolio-section-lead {
+    margin-top: 1.5rem;
+  }
+
+  .toolkit-download-block {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--aimc-rule);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+  }
+
+  a.toolkit-download,
+  a.toolkit-download:visited {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1.5rem;
+    background: var(--aimc-accent);
+    border: 1px solid var(--aimc-accent);
+    color: var(--aimc-bg);
+    font-family: var(--aimc-font-display);
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    span {
+      color: inherit;
+    }
+  }
+
+  a.toolkit-download:hover,
+  a.toolkit-download:focus-visible {
+    background: transparent;
+    color: var(--aimc-accent);
+    text-decoration: none;
+  }
+
+  .toolkit-download-meta {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--aimc-font-body);
+    font-size: 0.95rem;
+    color: var(--aimc-fg-muted);
+
+    span {
+      color: inherit;
+    }
+  }
+
+  .toolkit-download-name {
+    font-weight: 500;
+    color: var(--aimc-fg) !important;
+  }
+
+  .toolkit .track-header .portfolio-section-lead {
+    margin-top: 0.5rem;
+  }
+
+  /* ============================================================
      Flow diagram (per-track signal flow inside Technical details)
      ============================================================ */
 

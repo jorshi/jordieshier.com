@@ -1,31 +1,7 @@
-<!DOCTYPE html>
-<html lang="{{ site.lang }}">
-
-  <!-- Head -->
-  <head>
-  {%- if page.redirect -%}
-    <meta http-equiv="refresh" content="3; url={{ site.baseurl | prepend: site.url }}/" />
-  {%- endif -%}
-  {% include head.html %}
-
-  <!-- Brand-substitute fonts:
-       JetBrains Mono ≈ Aeonik Fono Medium (display + caption)
-       Inter          ≈ TT Commons Pro Regular (body) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-
-  <!-- Page-scoped styles: only this layout loads them. -->
-  <link rel="stylesheet" href="{{ '/assets/css/aimc2026.css' | relative_url }}">
-  </head>
-
-  <!-- Body -->
-  <body class="aimc-portfolio {% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
-
-    <!-- Header -->
-    {%- include header.html %}
-
-    <!-- Content -->
+---
+layout: aimc-base
+flow: true
+---
     {%- assign tracks = site.data.aimc2026.tracks -%}
     <article class="portfolio">
 
@@ -49,10 +25,12 @@
             <li>
               {%- if material.url and material.url != "" %}
               {%- assign _external = false -%}
-              {%- if material.url contains '://' %}{% assign _external = true %}{% endif -%}
+              {%- assign _file = false -%}
+              {%- if material.url contains '://' %}{% assign _external = true %}
+              {%- elsif material.url contains '.pdf' %}{% assign _file = true %}{% endif -%}
               <a class="portfolio-material"
                  href="{% if _external %}{{ material.url }}{% else %}{{ material.url | relative_url }}{% endif %}"
-                 target="_blank" rel="noopener">
+                 {% if _external or _file %}target="_blank" rel="noopener"{% endif %}>
                 <span class="portfolio-material-name">{{ material.name }}</span>
                 <span class="portfolio-material-meta">
                   <span>{{ material.meta | default: 'Link' }}</span>
@@ -61,8 +39,12 @@
                     <path d="M5 2.5 H2 V12 H11.5 V9 M8 2.5 H11.5 V6 M11.5 2.5 L6 8"
                           fill="none" stroke="currentColor" stroke-width="1.25"
                           stroke-linecap="round" stroke-linejoin="round"/>
-                    {%- else %}
+                    {%- elsif _file %}
                     <path d="M7 1.5 V9.5 M3.5 6 L7 9.5 L10.5 6 M1.5 12.5 H12.5"
+                          fill="none" stroke="currentColor" stroke-width="1.25"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                    {%- else %}
+                    <path d="M1.5 7 H12 M8 3 L12 7 L8 11"
                           fill="none" stroke="currentColor" stroke-width="1.25"
                           stroke-linecap="round" stroke-linejoin="round"/>
                     {%- endif %}
@@ -238,17 +220,3 @@
       {%- endif -%}
 
     </article>
-
-    <!-- Footer -->
-    {%- include footer.html %}
-
-    <!-- JavaScripts -->
-    {% include scripts/jquery.html %}
-    {% include scripts/bootstrap.html %}
-    {% include scripts/misc.html %}
-    {% include scripts/mathjax.html %}
-    {% include scripts/analytics.html %}
-    {% include scripts/d3.html %}
-    <script defer src="{{ '/assets/js/aimc2026_flow.js' | relative_url }}"></script>
-  </body>
-</html>

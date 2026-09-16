@@ -1,0 +1,100 @@
+---
+layout: aimc-base
+---
+    <article class="portfolio toolkit">
+
+      <header class="portfolio-header">
+        {%- if page.back and page.back.url %}
+          <a class="toolkit-back" href="{{ page.back.url | relative_url }}">
+            <span aria-hidden="true">←</span> {{ page.back.name | default: 'Back' }}
+          </a>
+        {%- endif %}
+        {%- if page.eyebrow and page.eyebrow != "" %}
+          <p class="portfolio-eyebrow">{{ page.eyebrow }}</p>
+        {%- endif %}
+        <h1 class="portfolio-title">{{ page.title | escape }}</h1>
+        {%- if page.subtitle and page.subtitle != "" %}
+          <p class="portfolio-subtitle">{{ page.subtitle }}</p>
+        {%- endif %}
+        {%- if content and content != "" %}
+          <div class="portfolio-section-lead">
+            {{ content }}
+          </div>
+        {%- endif %}
+
+        {%- if page.download and page.download.url %}
+        <div class="toolkit-download-block">
+          <a class="toolkit-download" href="{{ page.download.url }}" download>
+            <svg class="portfolio-material-icon" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+              <path d="M7 1.5 V9.5 M3.5 6 L7 9.5 L10.5 6 M1.5 12.5 H12.5"
+                    fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Download</span>
+          </a>
+          <p class="toolkit-download-meta">
+            <span class="toolkit-download-name">{{ page.download.name }}</span>
+            {%- if page.download.meta %}
+              <span class="track-caption-sep" aria-hidden="true">·</span>
+              <span>{{ page.download.meta }}</span>
+            {%- endif %}
+          </p>
+        </div>
+        {%- endif %}
+      </header>
+
+      {%- for video in page.videos -%}
+      {%- comment -%}
+        Resolve the YouTube ID from whatever was pasted into `youtube`:
+          - bare ID:     s1cGbfTsxyU
+          - short link:  https://youtu.be/s1cGbfTsxyU
+          - watch link:  https://www.youtube.com/watch?v=s1cGbfTsxyU
+      {%- endcomment -%}
+      {%- if video.youtube contains 'v=' -%}
+        {%- assign _yt = video.youtube | split: 'v=' | last | split: '&' | first -%}
+      {%- else -%}
+        {%- assign _yt = video.youtube | split: '/' | last | split: '?' | first -%}
+      {%- endif -%}
+
+      <section class="track" id="{{ video.id | default: forloop.index }}">
+        <header class="track-header">
+          {%- if video.label %}
+          <p class="track-caption">
+            <span class="track-caption-num">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>
+            <span class="track-caption-sep" aria-hidden="true">·</span>
+            <span>{{ video.label }}</span>
+          </p>
+          {%- endif %}
+          <h2 class="track-title">{{ video.title | escape }}</h2>
+          {%- if video.description %}
+            <div class="portfolio-section-lead">{{ video.description | markdownify }}</div>
+          {%- endif %}
+        </header>
+
+        <div class="track-video">
+          <div class="track-video-frame">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/{{ _yt }}?rel=0"
+              loading="lazy"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              title="{{ video.title | escape }}"></iframe>
+          </div>
+        </div>
+      </section>
+
+      {%- unless forloop.last -%}
+      <hr class="track-divider" aria-hidden="true">
+      <div class="track-rest" aria-hidden="true">
+        <svg viewBox="0 0 64 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+          <line x1="6"  y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/>
+          <line x1="20" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="2"/>
+          <line x1="34" y1="8" x2="42" y2="8" stroke="currentColor" stroke-width="2"/>
+          <circle cx="52" cy="8" r="2" fill="currentColor"/>
+        </svg>
+      </div>
+      {%- endunless -%}
+      {%- endfor -%}
+
+    </article>

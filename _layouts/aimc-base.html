@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
+
+  <!-- Head -->
+  <head>
+  {%- if page.redirect -%}
+    <meta http-equiv="refresh" content="3; url={{ site.baseurl | prepend: site.url }}/" />
+  {%- endif -%}
+  {% include head.html %}
+
+  <!-- Brand-substitute fonts:
+       JetBrains Mono ≈ Aeonik Fono Medium (display + caption)
+       Inter          ≈ TT Commons Pro Regular (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <!-- Page-scoped styles: only the aimc-* layouts load them. -->
+  <link rel="stylesheet" href="{{ '/assets/css/aimc2026.css' | relative_url }}">
+  </head>
+
+  <!-- Body -->
+  <body class="aimc-portfolio {% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+
+    <!-- Header -->
+    {%- include header.html %}
+
+    <!-- Content -->
+    {{ content }}
+
+    <!-- Footer -->
+    {%- include footer.html %}
+
+    <!-- JavaScripts -->
+    {% include scripts/jquery.html %}
+    {% include scripts/bootstrap.html %}
+    {% include scripts/misc.html %}
+    {% include scripts/mathjax.html %}
+    {% include scripts/analytics.html %}
+    {%- if layout.flow %}
+    {% include scripts/d3.html %}
+    <script defer src="{{ '/assets/js/aimc2026_flow.js' | relative_url }}"></script>
+    {%- endif %}
+  </body>
+</html>
