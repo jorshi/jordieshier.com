@@ -97,4 +97,40 @@ layout: aimc-base
       {%- endunless -%}
       {%- endfor -%}
 
+      {%- if page.notes %}
+      {%- assign _notes_index = page.videos.size | plus: 1 -%}
+      {%- if page.videos and page.videos.size > 0 %}
+      <hr class="track-divider" aria-hidden="true">
+      <div class="track-rest" aria-hidden="true">
+        <svg viewBox="0 0 64 16" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+          <line x1="6"  y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/>
+          <line x1="20" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="2"/>
+          <line x1="34" y1="8" x2="42" y2="8" stroke="currentColor" stroke-width="2"/>
+          <circle cx="52" cy="8" r="2" fill="currentColor"/>
+        </svg>
+      </div>
+      {%- endif %}
+
+      <section class="track toolkit-notes" id="{{ page.notes.id | default: 'notes' }}">
+        <header class="track-header">
+          {%- if page.notes.label %}
+          <p class="track-caption">
+            <span class="track-caption-num">{{ _notes_index | prepend: '00' | slice: -2, 2 }}</span>
+            <span class="track-caption-sep" aria-hidden="true">·</span>
+            <span>{{ page.notes.label }}</span>
+          </p>
+          {%- endif %}
+          <h2 class="track-title">{{ page.notes.title | escape }}</h2>
+        </header>
+
+        {%- if page.notes.body and page.notes.body != "" %}
+        <div class="track-disclosure-body">
+          {{ page.notes.body | markdownify }}
+        </div>
+        {%- endif %}
+
+        {%- include aimc_materials.html items=page.notes.links label=page.notes.links_label %}
+      </section>
+      {%- endif %}
+
     </article>
